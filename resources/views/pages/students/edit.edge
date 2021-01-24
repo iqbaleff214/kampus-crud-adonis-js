@@ -1,0 +1,61 @@
+@layout('layout.base')
+
+@yield('title')
+    Mahasiswa
+@endyield
+
+@yield('content')
+<form action="{{ route('students.update', {id: student.id}) }}?_method=put" method="post">
+    {{ csrfField() }}
+    <input type="hidden" name="id" value="{{student.id}}">
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2 text-sm-right">NIM</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="NIM" name="nim" value="{{ student.nim }}" readonly>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2 text-sm-right">Nama</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="Nama" name="name" value="{{ student.name }}">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2 text-sm-right">Tanggal Lahir</label>
+        <div class="col-sm-10">
+            <input type="date" class="form-control" name="birth_date" value="{{ student.birth_date.getFullYear()+'-'+student.birth_date.getMonth()+1+'-'+student.birth_date.getDate() }}">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2 text-sm-right">Agama</label>
+        <div class="col-sm-10">
+            <select name="religion" id="agama" class="form-control">
+                <option value="Islam" {{ student.religion == 'Islam' ? 'selected' : '' }}>Islam</option>
+                <option value="Katolik" {{ student.religion == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                <option value="Protestan" {{ student.religion == 'Protestan' ? 'selected' : '' }}>Protestan</option>
+                <option value="Hindu" {{ student.religion == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                <option value="Budha" {{ student.religion == 'Budha' ? 'selected' : '' }}>Budha</option>
+            </select>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2 text-sm-right">Program Studi</label>
+        <div class="col-sm-10">
+            <select name="majors" id="jurusan" class="form-control">
+                <option value="Teknik Informatika" {{ student.majors == 'Teknik Informatika' ? 'selected' : '' }}>Teknik Informatika</option>
+                <option value="Teknik Listrik" {{ student.majors == 'Teknik Listrik' ? 'selected' : '' }}>Teknik Listrik</option>
+                <option value="Elektronika" {{ student.majors == 'Elektronika' ? 'selected' : '' }}>Elektronika</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-sm-6 my-2 text-sm-right">
+            <a href="{{ route('students.index') }}" class="btn btn-secondary">Kembali</a>
+        </div>
+        <div class="col-md-2 col-sm-6 my-2">
+            <button class="btn btn-primary" type="submit">Simpan</button>
+        </div>
+        <div class="col-md-8"></div>
+    </div>
+</form>
+@endyield
